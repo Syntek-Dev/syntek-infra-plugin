@@ -87,7 +87,7 @@ pub fn status() -> Result<String> {
         if let Ok(link) = std::fs::read_link("/run/current-system") {
             let link_str = link.to_string_lossy();
             // Format: /nix/store/xxx-nixos-system-hostname-version
-            if let Some(gen_str) = link_str.split('-').last() {
+            if let Some(gen_str) = link_str.split('-').next_back() {
                 if let Ok(gen) = gen_str.parse::<u32>() {
                     result.current_generation = Some(gen);
                 }
@@ -111,9 +111,9 @@ pub fn status() -> Result<String> {
     }
 
     // Check for current configuration path
-    if std::path::Path::new("/etc/nixos/flake.nix").exists() {
-        result.current_configuration = Some("/etc/nixos".to_string());
-    } else if std::path::Path::new("/etc/nixos/configuration.nix").exists() {
+    if std::path::Path::new("/etc/nixos/flake.nix").exists()
+        || std::path::Path::new("/etc/nixos/configuration.nix").exists()
+    {
         result.current_configuration = Some("/etc/nixos".to_string());
     }
 
