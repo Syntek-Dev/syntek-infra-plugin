@@ -1,7 +1,7 @@
 {
   "name": "syntek-infra",
-  "version": "1.0.2",
-  "description": "NixOS configuration and Wireguard VPN setup assistant for Claude Code",
+  "version": "1.1.0",
+  "description": "NixOS configuration, Hyprland compositor, and Wireguard VPN setup assistant for Claude Code",
   "author": {
     "name": "Syntek Developers",
     "url": "https://github.com/Syntek-Studio/syntek-infra-plugin"
@@ -11,6 +11,9 @@
     "nixos",
     "nix",
     "flakes",
+    "hyprland",
+    "wayland",
+    "compositor",
     "wireguard",
     "vpn",
     "infrastructure",

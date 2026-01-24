@@ -1,8 +1,9 @@
 # Project Context for Claude Code
 
 **Project Name:** Syntek Infra Plugin **Stack:** Claude Code Plugin (Rust + Nix)
-**Description:** NixOS configuration and Wireguard VPN setup assistant
-**Language:** British English (en_GB) **Timezone:** Europe/London
+**Description:** NixOS configuration, Hyprland compositor, and Wireguard VPN
+setup assistant **Language:** British English (en_GB) **Timezone:**
+Europe/London
 
 ## Project Type
 
@@ -10,6 +11,7 @@ This is a **Claude Code plugin** that provides agents, commands, skills, and
 tools to help users with:
 
 - NixOS configuration using Flakes
+- Hyprland wayland compositor configuration
 - Wireguard VPN setup (Mullvad, site-to-site, road warrior, full tunnel)
 - Hashicorp Vault integration for secrets
 - Vaultwarden integration for passwords
@@ -44,6 +46,7 @@ syntek-infra-plugin/
 ## Commands
 
 - `/syntek-infra:nixos` - Generate NixOS configuration
+- `/syntek-infra:hyprland` - Configure Hyprland compositor
 - `/syntek-infra:wireguard` - Configure Wireguard VPN
 - `/syntek-infra:secrets` - Manage secrets in Vault/Vaultwarden
 - `/syntek-infra:deploy` - Deploy NixOS configuration

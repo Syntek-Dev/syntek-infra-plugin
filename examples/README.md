@@ -25,6 +25,16 @@ examples/
 │   │   └── ZFS-CONFIGURATION.md    # ZFS setup and management
 │   └── networking/
 │       └── VLAN-SEGMENTATION.md    # Network segmentation with VLANs
+├── hyprland/
+│   ├── configs/
+│   │   ├── BASIC-HYPRLAND.md       # Basic Hyprland configuration
+│   │   ├── LAPTOP-HYPRLAND.md      # Laptop-optimised configuration
+│   │   └── MULTI-MONITOR.md        # Multi-monitor desktop setup
+│   ├── hardware/
+│   │   ├── AMD-HYPRLAND.md         # AMD GPU configuration (Framework, desktop)
+│   │   └── NVIDIA-HYPRLAND.md      # NVIDIA GPU configuration
+│   └── nixos/
+│       └── HYPRLAND-NIXOS.md       # NixOS integration and ecosystem
 ├── wireguard/
 │   ├── outbound-vpn/
 │   │   └── MULLVAD-CLIENT.md       # Mullvad + SSH proxy rotation
@@ -42,6 +52,12 @@ examples/
 | Topic                        | Example File                                                                         |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
 | NixOS modules & flakes       | `nixos/flakes/BASIC-FLAKE.md`, `nixos/modules/CUSTOM-MODULE.md`                      |
+| Hyprland basic config        | `hyprland/configs/BASIC-HYPRLAND.md`                                                 |
+| Hyprland laptop              | `hyprland/configs/LAPTOP-HYPRLAND.md`                                                |
+| Hyprland multi-monitor       | `hyprland/configs/MULTI-MONITOR.md`                                                  |
+| Hyprland NixOS integration   | `hyprland/nixos/HYPRLAND-NIXOS.md`                                                   |
+| Hyprland + AMD               | `hyprland/hardware/AMD-HYPRLAND.md`                                                  |
+| Hyprland + NVIDIA            | `hyprland/hardware/NVIDIA-HYPRLAND.md`                                               |
 | WireGuard/VPN configuration  | `wireguard/outbound-vpn/MULLVAD-CLIENT.md`, `wireguard/full-tunnel/SERVER-CONFIG.md` |
 | nftables/iptables rules      | `nixos/firewall/NFTABLES-FIREWALL.md`                                                |
 | systemd service deployment   | `nixos/systemd/SYSTEMD-SERVICES.md`                                                  |

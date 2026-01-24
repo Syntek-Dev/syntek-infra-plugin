@@ -4,12 +4,13 @@ This directory contains agent definitions for the syntek-infra plugin.
 
 ## Available Agents
 
-| Agent              | Description                                                     | Model  |
-| ------------------ | --------------------------------------------------------------- | ------ |
-| `infra-architect`  | High-level infrastructure planning and deployment orchestration | sonnet |
-| `nixos-builder`    | NixOS configuration generation and validation specialist        | sonnet |
-| `network-engineer` | Network and Wireguard VPN configuration specialist              | sonnet |
-| `vault-manager`    | Secrets management with Hashicorp Vault and Vaultwarden         | sonnet |
+| Agent                   | Description                                                     | Model  |
+| ----------------------- | --------------------------------------------------------------- | ------ |
+| `infra-architect`       | High-level infrastructure planning and deployment orchestration | sonnet |
+| `nixos-builder`         | NixOS configuration generation and validation specialist        | sonnet |
+| `network-engineer`      | Network and Wireguard VPN configuration specialist              | sonnet |
+| `vault-manager`         | Secrets management with Hashicorp Vault and Vaultwarden         | sonnet |
+| `hyprland-configurator` | Hyprland wayland compositor configuration specialist            | sonnet |
 
 ## Agent Responsibilities
 
@@ -49,6 +50,16 @@ The vault agent handles secrets:
 - Generates and rotates Wireguard keys
 - Configures agenix/sops-nix
 
+### hyprland-configurator
+
+The Hyprland agent handles Wayland compositor configuration:
+
+- Generates custom hyprland.conf configurations
+- Configures keybindings, animations, and window rules
+- Sets up multi-monitor layouts
+- Integrates Hyprland ecosystem (waybar, wofi, dunst)
+- Debugs Hyprland issues and optimises performance
+
 ## Usage
 
 Agents are invoked via commands:
@@ -59,4 +70,5 @@ Agents are invoked via commands:
 /syntek-infra:secrets    → vault-manager agent
 /syntek-infra:deploy     → infra-architect agent
 /syntek-infra:init       → infra-architect agent
+/syntek-infra:hyprland   → hyprland-configurator agent
 ```

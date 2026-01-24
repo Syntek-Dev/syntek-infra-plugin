@@ -1,5 +1,6 @@
 use clap::{Parser, Subcommand};
 
+mod hyprland;
 mod nix;
 mod nixos;
 mod vault;
@@ -18,6 +19,11 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Hyprland wayland compositor helpers
+    Hyprland {
+        #[command(subcommand)]
+        action: HyprlandCommands,
+    },
     /// Nix package manager detection and helpers
     Nix {
         #[command(subcommand)]
@@ -43,6 +49,22 @@ enum Commands {
         #[command(subcommand)]
         action: WireguardCommands,
     },
+}
+
+#[derive(Subcommand)]
+enum HyprlandCommands {
+    /// Detect Hyprland installation and configuration
+    Detect,
+    /// Get current Hyprland status (monitors, workspaces, etc.)
+    Status,
+    /// Validate a Hyprland configuration file
+    Validate {
+        /// Path to hyprland.conf
+        #[arg(long, default_value = "~/.config/hypr/hyprland.conf")]
+        path: String,
+    },
+    /// Reload Hyprland configuration
+    Reload,
 }
 
 #[derive(Subcommand)]
@@ -118,6 +140,12 @@ fn main() {
     let cli = Cli::parse();
 
     let result = match cli.command {
+        Commands::Hyprland { action } => match action {
+            HyprlandCommands::Detect => hyprland::detect(),
+            HyprlandCommands::Status => hyprland::status(),
+            HyprlandCommands::Validate { path } => hyprland::validate(&path),
+            HyprlandCommands::Reload => hyprland::reload(),
+        },
         Commands::Nix { action } => match action {
             NixCommands::Detect => nix::detect(),
             NixCommands::Channels => nix::channels(),
@@ -146,10 +174,13 @@ fn main() {
     match result {
         Ok(json) => println!("{}", json),
         Err(e) => {
-            eprintln!("{}", serde_json::json!({
-                "error": true,
-                "message": e.to_string()
-            }));
+            eprintln!(
+                "{}",
+                serde_json::json!({
+                    "error": true,
+                    "message": e.to_string()
+                })
+            );
             std::process::exit(1);
         }
     }
