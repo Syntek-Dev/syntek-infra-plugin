@@ -1,6 +1,6 @@
 {
   "name": "syntek-infra",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "description": "NixOS configuration and Wireguard VPN setup assistant for Claude Code",
   "author": {
     "name": "Syntek Developers",
