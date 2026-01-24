@@ -83,16 +83,6 @@ pub fn status() -> Result<String> {
 /// Note: This is a placeholder - actual implementation would need
 /// proper API integration with both Vault and Vaultwarden
 pub fn sync() -> Result<String> {
-    let result = SyncResult {
-        success: false,
-        items_synced: 0,
-        error: Some(
-            "Sync functionality requires Vault and Vaultwarden to be configured. \
-             Use the vault-manager agent for guided setup."
-                .to_string(),
-        ),
-    };
-
     // In a real implementation, this would:
     // 1. Connect to Vault and read secrets from a specific path
     // 2. Connect to Vaultwarden via API
