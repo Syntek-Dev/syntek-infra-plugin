@@ -1,0 +1,14 @@
+{
+  "name": "syntek-marketplace",
+  "owner": {
+    "name": "Syntek Developers",
+    "url": "https://github.com/Syntek-Studio/syntek-infra-plugin"
+  },
+  "plugins": [
+    {
+      "name": "syntek-infra",
+      "source": "./",
+      "description": "NixOS configuration and Wireguard VPN setup assistant for Claude Code. Provides agents, commands, and tools to help with NixOS Flakes configurations, Wireguard VPN setups, and Hashicorp Vault/Vaultwarden integration."
+    }
+  ]
+}

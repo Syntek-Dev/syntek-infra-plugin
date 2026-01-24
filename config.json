@@ -1,0 +1,88 @@
+{
+  "tools": [
+    {
+      "name": "nix_detect",
+      "description": "Detect Nix installation, version, and flakes support",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["nix", "detect"]
+      }
+    },
+    {
+      "name": "nix_channels",
+      "description": "List configured Nix channels",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["nix", "channels"]
+      }
+    },
+    {
+      "name": "nixos_status",
+      "description": "Get current NixOS generation and system status",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["nixos", "status"]
+      }
+    },
+    {
+      "name": "nixos_generations",
+      "description": "List NixOS generations for rollback",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["nixos", "generations"]
+      }
+    },
+    {
+      "name": "vault_status",
+      "description": "Check Hashicorp Vault connectivity and authentication status",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["vault", "status"]
+      }
+    },
+    {
+      "name": "vaultwarden_status",
+      "description": "Check Vaultwarden connectivity",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["vaultwarden", "status"]
+      }
+    },
+    {
+      "name": "wireguard_keygen",
+      "description": "Generate a Wireguard key pair",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "execution": {
+        "command": "./plugins/syntek-infra-tool",
+        "args": ["wireguard", "keygen"]
+      }
+    }
+  ]
+}

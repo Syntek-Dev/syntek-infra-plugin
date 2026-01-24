@@ -1,0 +1,20 @@
+{
+  "name": "syntek-infra",
+  "version": "0.1.0",
+  "description": "NixOS configuration and Wireguard VPN setup assistant for Claude Code",
+  "author": {
+    "name": "Syntek Developers",
+    "url": "https://github.com/Syntek-Studio/syntek-infra-plugin"
+  },
+  "keywords": [
+    "claude-code",
+    "nixos",
+    "nix",
+    "flakes",
+    "wireguard",
+    "vpn",
+    "infrastructure",
+    "hashicorp-vault",
+    "vaultwarden"
+  ]
+}
