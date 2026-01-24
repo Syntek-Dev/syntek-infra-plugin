@@ -1,0 +1,22 @@
+[package]
+name = "syntek-infra-tool"
+version = "0.1.0"
+edition = "2021"
+authors = ["Syntek Developers"]
+description = "CLI tool for NixOS and Wireguard environment detection"
+license = "MIT"
+repository = "https://github.com/Syntek-Studio/syntek-infra-plugin"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json"] }
+base64 = "0.22"
+anyhow = "1"
+thiserror = "1"
+
+[profile.release]
+lto = true
+strip = true
