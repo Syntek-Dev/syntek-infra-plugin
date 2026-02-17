@@ -59,6 +59,8 @@ Ask the user if not provided in CLAUDE.md or context:
    - Break down into phases
    - Identify dependencies between tasks
    - Estimate complexity (not time)
+   - Copy `templates/coding-principles.md` to `.claude/coding-principles.md` in
+     the project — it must always accompany CLAUDE.md
 
 4. **Coordinate Deployment**
    - Hand off to `nixos-builder` for configuration generation

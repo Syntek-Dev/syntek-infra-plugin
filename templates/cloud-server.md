@@ -3,6 +3,12 @@
 **Device:** [Cloud Provider - Instance Type] **Hostname:** [Insert Hostname]
 **Stack:** NixOS + Flakes **Created:** [Insert Date]
 
+## Coding Principles
+
+All code in this project follows Rob Pike's 5 Rules and Linus Torvalds' Coding
+Principles. See [coding-principles.md](coding-principles.md) before writing or
+reviewing any code.
+
 ## Skill Target
 
 ```

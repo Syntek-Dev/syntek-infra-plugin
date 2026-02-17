@@ -36,7 +36,8 @@ The agent is an Infrastructure Architect who:
 ```
 nixos-config/
 ├── .claude/
-│   └── CLAUDE.md        # Project context (from template)
+│   ├── CLAUDE.md              # Project context (from template)
+│   └── coding-principles.md   # Rob Pike's 5 Rules + Linus Torvalds' principles
 ├── flake.nix            # Flake inputs and outputs
 ├── flake.lock           # Locked dependencies
 ├── configuration.nix    # Main configuration
@@ -44,6 +45,11 @@ nixos-config/
 ├── modules/             # Custom modules
 └── secrets/             # Encrypted secrets (agenix/sops)
 ```
+
+The agent must copy both `templates/CLAUDE.md` (from the chosen device template)
+**and** `templates/coding-principles.md` into `.claude/` when initialising a
+project. The coding principles are referenced from CLAUDE.md and must travel
+with it.
 
 ## Required Information
 

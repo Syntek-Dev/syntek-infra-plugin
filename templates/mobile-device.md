@@ -3,6 +3,12 @@
 **Device:** [Pinephone / Pinetab] **Hostname:** [Insert Hostname] **Stack:**
 NixOS + Flakes + mobile-nixos **Created:** [Insert Date]
 
+## Coding Principles
+
+All code in this project follows Rob Pike's 5 Rules and Linus Torvalds' Coding
+Principles. See [coding-principles.md](coding-principles.md) before writing or
+reviewing any code.
+
 ## Skill Target
 
 ```
