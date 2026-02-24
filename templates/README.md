@@ -13,14 +13,26 @@ types.
 | `cloud-server.md`       | Cloud server (Hetzner/AWS/DO)          | device-server |
 | `mobile-device.md`      | Pinephone/Pinetab mobile device        | device-mobile |
 
+## Documentation Templates
+
+These four files are copied into every project alongside the device CLAUDE.md:
+
+| File                    | Purpose                                                  |
+| ----------------------- | -------------------------------------------------------- |
+| `CODING-PRINCIPLES.md`  | Code standards: Rob Pike, Linus Torvalds, error handling |
+| `TESTING.md`            | Testing guide: Rust unit/integration, nixosTest, proptest |
+| `SECURITY.md`           | Security: Vault, agenix, Wireguard keys, module hardening |
+| `DEVELOPMENT.md`        | Workflow: dev loop, deployment, common tasks             |
+
 ## How Templates Work
 
 When you run `/syntek-infra:init`, the agent will:
 
 1. Ask which device type you're configuring
-2. Copy the appropriate template to your project as `CLAUDE.md`
-3. Help you fill in the placeholders
-4. Create the initial Flake structure
+2. Copy the appropriate device template to your project as `.claude/CLAUDE.md`
+3. Copy all four documentation files into `.claude/`
+4. Help you fill in the placeholders
+5. Create the initial Flake structure
 
 ## Template Structure
 

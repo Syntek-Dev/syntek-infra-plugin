@@ -3,11 +3,16 @@
 **Device:** [Cloud Provider - Instance Type] **Hostname:** [Insert Hostname]
 **Stack:** NixOS + Flakes **Created:** [Insert Date]
 
-## Coding Principles
+## Required Documentation
 
-All code in this project follows Rob Pike's 5 Rules and Linus Torvalds' Coding
-Principles. See [coding-principles.md](coding-principles.md) before writing or
-reviewing any code.
+All code in this project follows the standards in these four files (in `.claude/`):
+
+- **[CODING-PRINCIPLES.md](CODING-PRINCIPLES.md)** — Rob Pike's 5 Rules, Linus Torvalds' principles, naming conventions, error handling, and code review checklist.
+- **[TESTING.md](TESTING.md)** — Testing guide for Rust and NixOS: unit, integration, nixosTest VM tests, and property-based tests.
+- **[SECURITY.md](SECURITY.md)** — Security architecture: Vault + agenix secrets, Wireguard key handling, NixOS module hardening, and the security checklist.
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** — Development workflow: local dev loop, deployment procedures, common tasks, and troubleshooting.
+
+Read all four before writing or reviewing any code.
 
 ## Skill Target
 

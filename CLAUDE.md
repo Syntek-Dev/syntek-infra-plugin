@@ -71,6 +71,17 @@ syntek-infra-plugin/
 - Wait for user approval before any deployment
 - Validate configurations in VM before deployment
 
+## Required Documentation
+
+All projects initialised by this plugin must include these four files in `.claude/`:
+
+- **[CODING-PRINCIPLES.md](templates/CODING-PRINCIPLES.md)** — Rob Pike's 5 Rules, Linus Torvalds' principles, naming conventions, error handling, and the code review checklist. Read before writing or reviewing any code.
+- **[TESTING.md](templates/TESTING.md)** — Testing guide for Rust and NixOS: unit tests, integration tests, `nixosTest` VM tests, property-based tests, and mocking patterns.
+- **[SECURITY.md](templates/SECURITY.md)** — Security architecture: secrets management (Vault + agenix), Wireguard key handling, NixOS module hardening, SSH access control, and the security checklist.
+- **[DEVELOPMENT.md](templates/DEVELOPMENT.md)** — Development workflow: getting started, the local development loop, deployment procedures, common tasks, and troubleshooting.
+
+The `/syntek-infra:init` command copies all four files into `.claude/` automatically alongside CLAUDE.md.
+
 ## Related Plugins
 
 - `syntek-dev-suite` - Development workflow tooling

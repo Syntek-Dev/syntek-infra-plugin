@@ -1,8 +1,10 @@
 use clap::{Parser, Subcommand};
 
+mod docs;
 mod hyprland;
 mod nix;
 mod nixos;
+mod paths;
 mod vault;
 mod vaultwarden;
 mod wireguard;
@@ -48,6 +50,16 @@ enum Commands {
     Wireguard {
         #[command(subcommand)]
         action: WireguardCommands,
+    },
+    /// Project documentation helpers (.claude/ files)
+    Docs {
+        #[command(subcommand)]
+        action: DocsCommands,
+    },
+    /// Resolve plugin directory paths (device-independent)
+    Paths {
+        #[command(subcommand)]
+        action: PathsCommands,
     },
 }
 
@@ -136,6 +148,28 @@ enum WireguardCommands {
     },
 }
 
+#[derive(Subcommand)]
+enum DocsCommands {
+    /// List project documentation files in .claude/
+    List,
+    /// Show the content of a named documentation file
+    Show {
+        /// Document name: CODING-PRINCIPLES, TESTING, SECURITY, DEVELOPMENT
+        name: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum PathsCommands {
+    /// Show all resolved plugin directory paths
+    All,
+    /// Get a specific plugin directory by name
+    Get {
+        /// Name: plugin-root, templates, examples, agents, commands
+        name: String,
+    },
+}
+
 fn main() {
     let cli = Cli::parse();
 
@@ -168,6 +202,14 @@ fn main() {
         Commands::Wireguard { action } => match action {
             WireguardCommands::Keygen => wireguard::keygen(),
             WireguardCommands::Qr { config } => wireguard::qr(&config),
+        },
+        Commands::Docs { action } => match action {
+            DocsCommands::List => docs::list(),
+            DocsCommands::Show { name } => docs::show(&name),
+        },
+        Commands::Paths { action } => match action {
+            PathsCommands::All => paths::all(),
+            PathsCommands::Get { name } => paths::get(&name),
         },
     };
 

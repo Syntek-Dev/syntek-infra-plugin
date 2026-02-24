@@ -8,6 +8,42 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.2.0] - 24/02/2026
+
+### Added
+
+- `paths.rs` module for device-independent plugin root discovery
+  - Uses `std::env::current_exe()` to walk up the directory tree
+  - Locates plugin root by finding `.claude-plugin/plugin.json` marker
+  - `SYNTEK_PLUGIN_DIR` env var as explicit override for edge cases
+  - `syntek-infra-tool paths all` — returns JSON of all plugin directory paths
+  - `syntek-infra-tool paths get <name>` — returns a single named path
+
+- `docs.rs` module wired into CLI for project documentation management
+  - `syntek-infra-tool docs list` — lists `.claude/` documentation files and presence
+  - `syntek-infra-tool docs show <name>` — prints full content of a named doc file
+
+- Four documentation templates now distributed with the plugin
+  - `templates/CODING-PRINCIPLES.md` — Rob Pike's 5 Rules and Linus Torvalds' principles
+  - `templates/TESTING.md` — Testing guide for Rust and NixOS
+  - `templates/SECURITY.md` — Security architecture and secrets management checklist
+  - `templates/DEVELOPMENT.md` — Development workflow and common tasks
+
+- Required documentation section in `CLAUDE.md` — agents must copy all four files into `.claude/` on init
+- `agents/infra-architect.md` updated with documentation copy workflow
+- `commands/init.md` updated with documentation file requirements
+- All device templates updated with documentation file references
+
+### Fixed
+
+- `hyprland.rs` now uses `anyhow::Result` consistently with all other modules
+  — eliminates `Box<dyn std::error::Error>` type mismatch in `main.rs`
+
+### Changed
+
+- `syntek-infra-tool` bumped to `0.2.0` for new subcommand groups (`docs`, `paths`)
+- Plugin version synced across `VERSION`, `plugin.json`, and `Cargo.toml`
+
 ## [1.0.0] - 24/01/2026
 
 ### Added

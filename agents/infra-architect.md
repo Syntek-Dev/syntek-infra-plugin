@@ -59,8 +59,14 @@ Ask the user if not provided in CLAUDE.md or context:
    - Break down into phases
    - Identify dependencies between tasks
    - Estimate complexity (not time)
-   - Copy `templates/coding-principles.md` to `.claude/coding-principles.md` in
-     the project — it must always accompany CLAUDE.md
+   - Copy all four documentation files from `templates/` into `.claude/` in the
+     project — they must always accompany CLAUDE.md:
+     - `templates/CODING-PRINCIPLES.md` → `.claude/CODING-PRINCIPLES.md`
+     - `templates/TESTING.md`           → `.claude/TESTING.md`
+     - `templates/SECURITY.md`          → `.claude/SECURITY.md`
+     - `templates/DEVELOPMENT.md`       → `.claude/DEVELOPMENT.md`
+   - Update `[Insert Date]` in `SECURITY.md` and `DEVELOPMENT.md` to today's
+     date (DD/MM/YYYY) after copying
 
 4. **Coordinate Deployment**
    - Hand off to `nixos-builder` for configuration generation

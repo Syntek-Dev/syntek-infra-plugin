@@ -1,9 +1,10 @@
+use anyhow::Result;
 use serde_json::json;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
 
-pub fn detect() -> Result<String, Box<dyn std::error::Error>> {
+pub fn detect() -> Result<String> {
     let mut result = json!({
         "hyprland_installed": false,
         "hyprland_running": false,
@@ -58,7 +59,7 @@ pub fn detect() -> Result<String, Box<dyn std::error::Error>> {
     Ok(serde_json::to_string_pretty(&result)?)
 }
 
-pub fn status() -> Result<String, Box<dyn std::error::Error>> {
+pub fn status() -> Result<String> {
     let mut result = json!({
         "connected": false,
         "monitors": [],
@@ -123,7 +124,7 @@ pub fn status() -> Result<String, Box<dyn std::error::Error>> {
     Ok(serde_json::to_string_pretty(&result)?)
 }
 
-pub fn validate(path: &str) -> Result<String, Box<dyn std::error::Error>> {
+pub fn validate(path: &str) -> Result<String> {
     let mut result = json!({
         "valid": false,
         "errors": [],
@@ -212,7 +213,7 @@ pub fn validate(path: &str) -> Result<String, Box<dyn std::error::Error>> {
     Ok(serde_json::to_string_pretty(&result)?)
 }
 
-pub fn reload() -> Result<String, Box<dyn std::error::Error>> {
+pub fn reload() -> Result<String> {
     let mut result = json!({
         "success": false,
         "message": null,
