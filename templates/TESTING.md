@@ -1,5 +1,13 @@
 # Testing Guide
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 **Purpose**: Reference document for all agents writing or reviewing tests.
 Agents MUST follow these conventions, patterns, and examples.
 

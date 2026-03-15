@@ -1,5 +1,13 @@
 # Basic NixOS Flake Structure
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 A minimal but complete Flake structure for NixOS configurations.
 
 ## Use Case

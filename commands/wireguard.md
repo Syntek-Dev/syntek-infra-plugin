@@ -3,6 +3,14 @@ description: '[Agent] Configure Wireguard VPN'
 usage: /syntek-infra:wireguard [use-case] [device]
 ---
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Spawn the `syntek-infra:network-engineer` agent (model: sonnet) to configure
 Wireguard VPN.
 
@@ -12,6 +20,15 @@ Before starting Wireguard work, gather context using:
 
 - `syntek-infra-tool vault status`
 - `syntek-infra-tool wireguard keygen` (when generating new keys)
+
+## Reference Documents
+
+The agent must read these files from `.claude/` before producing any configuration:
+
+- `.claude/CODING-PRINCIPLES.md` — coding standards and review checklist
+- `.claude/SECURITY.md` — Wireguard key handling, secrets management, firewall rules
+- `.claude/ARCHITECTURE-PATTERNS.md` — Wireguard topologies, secret injection patterns
+- `.claude/DATA-STRUCTURES.md` — Nix option types for network configuration
 
 ## The Agent
 

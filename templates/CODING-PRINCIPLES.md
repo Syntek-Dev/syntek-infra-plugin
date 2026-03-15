@@ -1,5 +1,14 @@
 # Coding Principles
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Infrastructure Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+**Plugin Scope:** syntek-infra (NixOS, Rust, Hyprland, Wireguard, Vault)
+
+---
+
 These principles apply to **all code** in this project. Read and apply them
 before writing or reviewing any code.
 

@@ -1,5 +1,13 @@
 # NixOS Cloud Server Configuration
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 **Device:** [Cloud Provider - Instance Type] **Hostname:** [Insert Hostname]
 **Stack:** NixOS + Flakes **Created:** [Insert Date]
 

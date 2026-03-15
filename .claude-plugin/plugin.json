@@ -1,6 +1,6 @@
 {
   "name": "syntek-infra",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "NixOS configuration, Hyprland compositor, and Wireguard VPN setup assistant for Claude Code",
   "author": {
     "name": "Syntek Developers",

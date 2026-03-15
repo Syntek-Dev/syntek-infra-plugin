@@ -1,5 +1,13 @@
 # Global Workflow - NixOS Infrastructure
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 This skill is **always applied** regardless of device type. It defines standards
 and conventions for all NixOS infrastructure work.
 

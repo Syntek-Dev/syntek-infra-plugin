@@ -1,5 +1,13 @@
 # Intel Laptop Hardware Configuration
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Hardware configuration patterns for Intel-based laptops.
 
 ## Use Case

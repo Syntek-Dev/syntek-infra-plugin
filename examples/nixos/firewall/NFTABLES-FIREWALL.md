@@ -1,5 +1,13 @@
 # nftables Firewall Configuration
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Modern firewall configuration using nftables on NixOS.
 
 ## Use Case

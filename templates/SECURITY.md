@@ -1,6 +1,13 @@
 # Security Architecture
 
-**Last Updated:** [Insert Date]
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Infrastructure Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+**Plugin Scope:** syntek-infra (NixOS, Hyprland, Wireguard, Vault, Vaultwarden)
+
+---
 
 Security patterns, access control, and hardening strategies for this NixOS
 configuration. Read before writing any module, service, or secret configuration.

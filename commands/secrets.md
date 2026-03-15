@@ -3,6 +3,14 @@ description: '[Agent] Manage secrets in Vault and Vaultwarden'
 usage: /syntek-infra:secrets [action] [path]
 ---
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Spawn the `syntek-infra:vault-manager` agent (model: sonnet) to manage secrets.
 
 ## Pre-flight: Run Plugin Tools
@@ -11,6 +19,14 @@ Before starting secrets work, gather context using:
 
 - `syntek-infra-tool vault status`
 - `syntek-infra-tool vaultwarden status`
+
+## Reference Documents
+
+The agent must read these files from `.claude/` before performing any secrets work:
+
+- `.claude/CODING-PRINCIPLES.md` — coding standards and review checklist
+- `.claude/SECURITY.md` — secrets management architecture, Vault policies, agenix bootstrap pattern
+- `.claude/ARCHITECTURE-PATTERNS.md` — two-tier secret injection pattern, Vault agent configuration
 
 ## The Agent
 

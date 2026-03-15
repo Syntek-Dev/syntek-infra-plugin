@@ -3,6 +3,14 @@ description: '[Agent] Configure Hyprland wayland compositor'
 usage: /syntek-infra:hyprland [device] [profile]
 ---
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Spawn the `syntek-infra:hyprland-configurator` agent (model: sonnet) to generate
 Hyprland compositor configurations.
 
@@ -12,6 +20,15 @@ Before starting Hyprland work, gather context using:
 
 - `syntek-infra-tool hyprland detect`
 - `syntek-infra-tool hyprland status`
+
+## Reference Documents
+
+The agent must read these files from `.claude/` before producing any configuration:
+
+- `.claude/CODING-PRINCIPLES.md` — coding standards and review checklist
+- `.claude/ARCHITECTURE-PATTERNS.md` — Hyprland configuration patterns, NixOS module structure
+- `.claude/PERFORMANCE.md` — VRR/VFR settings, GPU drivers, animation tuning
+- `.claude/DATA-STRUCTURES.md` — Nix option types for compositor configuration
 
 ## The Agent
 

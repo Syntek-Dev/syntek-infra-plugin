@@ -1,5 +1,13 @@
 # .claude-plugin
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 This directory contains Claude Code plugin metadata files.
 
 ## Files

@@ -3,6 +3,14 @@ description: '[Agent] Deploy NixOS configuration to target device'
 usage: /syntek-infra:deploy [device] [target]
 ---
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Spawn the `syntek-infra:infra-architect` agent (model: sonnet) to deploy NixOS
 configurations.
 
@@ -13,6 +21,14 @@ Before deploying, gather context using:
 - `syntek-infra-tool nix detect`
 - `syntek-infra-tool nixos status`
 - `syntek-infra-tool vault status`
+
+## Reference Documents
+
+The agent must read these files from `.claude/` before any deployment:
+
+- `.claude/SECURITY.md` — deployment security checklist, secrets verification
+- `.claude/DEVELOPMENT.md` — deployment procedures, rollback steps, VM validation requirement
+- `.claude/ARCHITECTURE-PATTERNS.md` — secret injection architecture, service ordering
 
 ## The Agent
 

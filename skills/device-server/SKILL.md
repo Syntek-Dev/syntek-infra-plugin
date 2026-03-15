@@ -1,5 +1,13 @@
 # Device: Home/Business Server
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 This skill provides guidance for configuring NixOS on home or business servers.
 
 ## Server Role

@@ -1,5 +1,13 @@
 # Basic Hyprland Configuration
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 A minimal, well-commented Hyprland configuration suitable for laptops and desktops.
 
 ## File Structure

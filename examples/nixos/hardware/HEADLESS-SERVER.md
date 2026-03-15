@@ -1,5 +1,13 @@
 # Headless Server Hardware Configuration
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Hardware configuration for servers without GPU/display output.
 
 ## Use Case

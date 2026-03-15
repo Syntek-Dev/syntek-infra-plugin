@@ -1,5 +1,13 @@
 # Secrets Injection with agenix
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Using agenix to encrypt secrets in git and decrypt at build time.
 
 ## Use Case

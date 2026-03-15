@@ -1,5 +1,13 @@
 # Hyprland NixOS Integration
 
+**Last Updated:** 15/03/2026
+**Version:** 2.0.0
+**Maintained By:** Development Team
+**Language:** British English (en_GB)
+**Timezone:** Europe/London
+
+---
+
 Complete NixOS configuration for Hyprland with all essential ecosystem packages.
 
 ## Basic Hyprland Setup
