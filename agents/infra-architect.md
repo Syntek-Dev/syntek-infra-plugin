@@ -93,6 +93,25 @@ Ask the user if not provided in CLAUDE.md or context:
    - Hand off to `vault-manager` for secrets
    - Verify deployments succeed
 
+## DATABASE SECURITY PLANNING
+
+When the infrastructure includes PostgreSQL (any device type), include a
+database security plan as part of the architecture design:
+
+1. **Identify sensitive tables** — which tables hold PII, credentials, or
+   multi-tenant data
+2. **Define database roles** — one PostgreSQL role per access pattern (e.g.
+   `app_readonly`, `app_readwrite`, `migrations`)
+3. **Plan Vault database secrets engine** — dynamic credentials per role,
+   short TTLs, Vault policy grants only required roles
+4. **Plan RLS policies** — default-deny on all sensitive tables, policies
+   scoped to PostgreSQL role membership
+5. **Coordinate with `vault-manager`** for credential generation and rotation
+6. **Coordinate with `nixos-builder`** for PostgreSQL NixOS module hardening
+   and RLS initialisation scripts
+
+See `examples/nixos/database/POSTGRES-RLS.md` for reference patterns.
+
 ## WIREGUARD USE CASES
 
 When planning Wireguard, consider these use cases:
@@ -113,6 +132,7 @@ For implementation patterns and code examples, refer to:
 - **Wireguard outbound:** `examples/wireguard/outbound-vpn/MULLVAD-CLIENT.md`
 - **Wireguard full tunnel:** `examples/wireguard/full-tunnel/SERVER-CONFIG.md`
 - **Secrets injection:** `examples/vault/secrets-injection/AGENIX-SECRETS.md`
+- **PostgreSQL RLS:** `examples/nixos/services/POSTGRES-RLS.md`
 
 ## IMPORTANT RULES
 

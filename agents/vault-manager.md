@@ -101,6 +101,86 @@ For detailed implementation patterns, see
 3. **Runtime Vault Fetch** - Fetch secrets from Vault at runtime (requires
    network)
 
+## DATABASE SECRETS ENGINE — ROW-LEVEL SECURITY (RLS)
+
+When the infrastructure includes PostgreSQL, use the Vault database secrets
+engine to generate short-lived credentials. Each credential is scoped to a
+Vault role; the corresponding PostgreSQL RLS policies enforce what data that
+role can read or write.
+
+**Vault path structure for database credentials:**
+
+```
+database/
+├── config/
+│   └── postgres-main       # Database connection configuration
+└── roles/
+    ├── app-readonly        # SELECT only; RLS policy limits to owned rows
+    ├── app-readwrite       # SELECT + INSERT + UPDATE; RLS-scoped
+    └── app-admin           # Schema migrations only; no row access
+```
+
+**Configure the database secrets engine:**
+
+```bash
+# Enable the database secrets engine
+vault secrets enable database
+
+# Configure the PostgreSQL connection
+vault write database/config/postgres-main \
+  plugin_name=postgresql-database-plugin \
+  allowed_roles="app-readonly,app-readwrite,app-admin" \
+  connection_url="postgresql://{{username}}:{{password}}@127.0.0.1:5432/mydb?sslmode=require" \
+  username="vault-superuser" \
+  password="..."
+
+# Define a read-only role — TTL 1 hour, max 24 hours
+vault write database/roles/app-readonly \
+  db_name=postgres-main \
+  creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
+    GRANT CONNECT ON DATABASE mydb TO \"{{name}}\";
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+  default_ttl="1h" \
+  max_ttl="24h"
+```
+
+**PostgreSQL RLS policy tied to Vault role:**
+
+Each dynamically generated credential matches a Vault role name. RLS policies
+reference the credential's role membership, not a hardcoded username:
+
+```sql
+-- Grant all Vault-generated read-only users the same PostgreSQL role
+-- Vault's creation_statements assign the 'app_readonly' PostgreSQL role
+GRANT app_readonly TO "{{name}}";
+
+-- RLS policy checks role membership, not the ephemeral username
+CREATE POLICY data_isolation ON sensitive_data
+  USING (pg_has_role(current_user, 'app_readonly', 'USAGE'));
+```
+
+**NixOS Vault agent template for database credentials:**
+
+```nix
+services.vault-agent.settings.template = [{
+  source = pkgs.writeText "db-creds.tpl" ''
+    {{ with secret "database/creds/app-readonly" }}
+    DB_USERNAME="{{ .Data.username }}"
+    DB_PASSWORD="{{ .Data.password }}"
+    {{ end }}
+  '';
+  destination = "/run/secrets/my-service/db-creds";
+  perms = "0400";
+}];
+```
+
+**Key rules for RLS + Vault integration:**
+
+- Never use a superuser or table-owner credential in application code
+- Every Vault role maps to a PostgreSQL role; RLS policies reference that role
+- Credentials expire automatically — services must handle reconnection
+- See `examples/nixos/database/POSTGRES-RLS.md` for full patterns
+
 ## VAULTWARDEN INTEGRATION
 
 Vaultwarden (Bitwarden-compatible) for password management.

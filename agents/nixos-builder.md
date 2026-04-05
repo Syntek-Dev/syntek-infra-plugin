@@ -122,6 +122,55 @@ Never include secrets directly. See
 `examples/vault/secrets-injection/AGENIX-SECRETS.md` for the recommended
 patterns using agenix or sops-nix.
 
+## DATABASE SECURITY — ROW-LEVEL SECURITY (RLS)
+
+Any NixOS configuration that includes `services.postgresql` **must** enforce
+Row-Level Security on all tables containing sensitive or multi-tenant data.
+
+**Requirements:**
+
+- Enable RLS on every sensitive table: `ALTER TABLE ... ENABLE ROW LEVEL
+  SECURITY`
+- Set `FORCE ROW LEVEL SECURITY` on tables so that the table owner is also
+  subject to policies
+- Default-deny: a table with RLS enabled but no matching policy returns zero
+  rows — this is correct and intentional
+- Each application service must connect as a dedicated, least-privilege
+  PostgreSQL user — never as the table owner or a superuser
+- RLS policies must reference the current database user
+  (`current_user`) or a session variable set by the application
+- Database credentials are generated dynamically via the Vault database
+  secrets engine — never hardcoded; see `examples/vault/secrets-injection/AGENIX-SECRETS.md`
+
+**NixOS PostgreSQL module requirement:**
+
+```nix
+services.postgresql = {
+  enable = true;
+  package = pkgs.postgresql_16;
+  # Always use peer or scram-sha-256 — never trust or md5
+  authentication = lib.mkForce ''
+    local all postgres peer
+    local all all scram-sha-256
+    host  all all 127.0.0.1/32 scram-sha-256
+  '';
+  initialScript = pkgs.writeText "init.sql" ''
+    -- Enable RLS on every table holding sensitive data.
+    -- Applied after schema creation — include in migration scripts.
+    ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+    ALTER TABLE users FORCE ROW LEVEL SECURITY;
+
+    -- Default-deny: no rows visible until a policy explicitly permits them.
+    -- A table with RLS enabled and no matching policy returns zero rows.
+    CREATE POLICY users_isolation ON users
+      USING (owner = current_user);
+  '';
+};
+```
+
+See `examples/nixos/database/POSTGRES-RLS.md` for full NixOS module patterns
+and the corresponding Vault database secrets engine configuration.
+
 ## ERROR HANDLING
 
 When builds fail:

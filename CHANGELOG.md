@@ -1,7 +1,7 @@
 # Changelog
 
-**Last Updated:** 15/03/2026
-**Version:** 2.0.0
+**Last Updated:** 05/04/2026
+**Version:** 2.1.0
 **Maintained By:** Development Team
 **Language:** British English (en_GB)
 **Timezone:** Europe/London
@@ -19,6 +19,7 @@ and this project adheres to
 ## Table of Contents
 
 - [Unreleased](#unreleased)
+- [2.1.0 - 05/04/2026](#210---05042026)
 - [2.0.0 - 15/03/2026](#200---15032026)
 - [0.1.0 - 22/01/2026](#010---22012026)
 
@@ -28,6 +29,24 @@ and this project adheres to
 
 ### Added
 - Nothing yet
+
+---
+
+## [2.1.0] - 05/04/2026
+
+### Added
+
+- Row-Level Security (RLS) documentation and examples for PostgreSQL on NixOS:
+  - `examples/nixos/services/POSTGRES-RLS.md` — comprehensive RLS reference
+    covering policy design, role hierarchies, security barrier views, and NixOS
+    service configuration patterns
+- RLS requirements and guidance added to `agents/infra-architect.md`,
+  `agents/nixos-builder.md`, and `agents/vault-manager.md` so agents apply
+  RLS best practices when generating database configurations
+- RLS security patterns added to `templates/SECURITY.md` — covers policy
+  authorship, privilege separation, and secrets injection via Vault
+- RLS architectural patterns added to `templates/ARCHITECTURE-PATTERNS.md` —
+  covers NixOS module design for RLS-enabled PostgreSQL services
 
 ---
 

@@ -32,6 +32,7 @@
   - [Site-to-Site Pattern](#site-to-site-pattern)
 - [Overlay Patterns](#overlay-patterns)
 - [Cross-System Builds](#cross-system-builds)
+- [PostgreSQL Row-Level Security Pattern](#postgresql-row-level-security-pattern)
 - [Hyprland Configuration Patterns](#hyprland-configuration-patterns)
 - [Architecture Checklist](#architecture-checklist)
 
@@ -547,6 +548,133 @@ outputs = { self, nixpkgs, ... }: {
 
 ---
 
+## PostgreSQL Row-Level Security Pattern
+
+When a NixOS configuration includes PostgreSQL, structure the database module
+to enforce RLS from initial setup. This ensures the security model is part of
+the declarative configuration, not applied manually after deployment.
+
+### NixOS PostgreSQL Module with RLS
+
+```nix
+# modules/database/postgres.nix
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.custom.database;
+in
+{
+  options.custom.database = {
+    enable = lib.mkEnableOption "PostgreSQL with RLS";
+
+    name = lib.mkOption {
+      type = lib.types.nonEmptyStr;
+      description = lib.mdDoc "Database name.";
+    };
+
+    vaultRole = lib.mkOption {
+      type = lib.types.nonEmptyStr;
+      description = lib.mdDoc "Vault database secrets engine role name for this service.";
+      example = "app-readwrite";
+    };
+
+    migrationPackage = lib.mkOption {
+      type = lib.types.package;
+      description = lib.mdDoc "Package providing the migration binary (e.g. dbmate, sqitch).";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.services.vault-agent.enable;
+        message = "custom.database requires vault-agent to be enabled for credential injection.";
+      }
+    ];
+
+    services.postgresql = {
+      enable = true;
+      package = pkgs.postgresql_16;
+      # scram-sha-256 only — never trust or md5
+      authentication = lib.mkForce ''
+        local all postgres peer
+        local all all scram-sha-256
+        host  all all 127.0.0.1/32 scram-sha-256
+      '';
+      settings = {
+        log_connections = true;
+        log_disconnections = true;
+        log_statement = "ddl";
+        ssl = true;
+      };
+      ensureDatabases = [ cfg.name ];
+      # Vault superuser created separately — not via ensureUsers
+    };
+
+    # Migration service runs after PostgreSQL and after Vault credentials are ready.
+    # Migrations apply RLS policies as versioned SQL.
+    systemd.services."db-migrate-${cfg.name}" = {
+      description = "Database migrations for ${cfg.name}";
+      after = [ "postgresql.service" "vault-agent.service" ];
+      requires = [ "postgresql.service" "vault-agent.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        EnvironmentFile = "/run/secrets/db-creds";  # Injected by Vault agent
+        ExecStart = "${cfg.migrationPackage}/bin/dbmate up";
+        User = "postgres";
+        ProtectSystem = "strict";
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+      };
+    };
+  };
+}
+```
+
+### RLS Migration Pattern
+
+RLS policies live in versioned migration files, not in `initialScript`:
+
+```sql
+-- migrations/20260101000001_enable_rls.sql
+
+-- Enable and force RLS on all sensitive tables
+ALTER TABLE user_data ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_data FORCE ROW LEVEL SECURITY;
+
+ALTER TABLE audit_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE audit_log FORCE ROW LEVEL SECURITY;
+
+-- Grant PostgreSQL roles to Vault-managed users at creation time
+-- (handled in Vault creation_statements — see vault-manager agent)
+
+-- Read policy: app_readonly role sees only rows it owns
+CREATE POLICY read_own_rows ON user_data
+  FOR SELECT
+  USING (pg_has_role(current_user, 'app_readonly', 'USAGE'));
+
+-- Write policy: app_readwrite role can insert and update its own rows
+CREATE POLICY write_own_rows ON user_data
+  FOR ALL
+  USING (pg_has_role(current_user, 'app_readwrite', 'USAGE'));
+
+-- Multi-tenant: scope to session variable set on connect
+-- Application must call: SET app.tenant_id = '...'; on each connection
+CREATE POLICY tenant_isolation ON tenant_records
+  USING (tenant_id = current_setting('app.tenant_id', true)::uuid);
+```
+
+**Rules:**
+- Always use `FORCE ROW LEVEL SECURITY` so the table owner is also subject to policies.
+- Default-deny: a table with RLS enabled and no matching policy returns zero rows — this is correct.
+- Never bypass RLS with superuser credentials in application code.
+- Apply RLS in migrations, not in `initialScript` (which runs only once at database creation).
+- Coordinate with `vault-manager` to ensure database roles in Vault's `creation_statements` match the PostgreSQL roles referenced in RLS policies.
+
+---
+
 ## Hyprland Configuration Patterns
 
 Structure Hyprland configuration as NixOS modules, not raw config files:
@@ -604,3 +732,7 @@ Before merging any new module or flake change:
 - [ ] Overlays defined in `flake.nix`, not in modules
 - [ ] `nix flake check` passes without errors or warnings
 - [ ] Configuration tested in a VM before deploying to hardware
+- [ ] PostgreSQL tables with sensitive data have `ENABLE ROW LEVEL SECURITY` and `FORCE ROW LEVEL SECURITY`
+- [ ] RLS policies applied via versioned migrations, not `initialScript`
+- [ ] Vault database secrets engine used for all PostgreSQL credentials
+- [ ] RLS policies reference PostgreSQL role membership, not ephemeral usernames
