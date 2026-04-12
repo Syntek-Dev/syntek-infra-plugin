@@ -4,7 +4,7 @@
   "description": "NixOS configuration, Hyprland compositor, and Wireguard VPN setup assistant for Claude Code",
   "author": {
     "name": "Syntek Developers",
-    "url": "https://github.com/Syntek-Studio/syntek-infra-plugin"
+    "url": "https://github.com/Syntek-Dev/syntek-infra-plugin"
   },
   "keywords": [
     "claude-code",

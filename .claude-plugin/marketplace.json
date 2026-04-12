@@ -2,7 +2,7 @@
   "name": "syntek-marketplace",
   "owner": {
     "name": "Syntek Developers",
-    "url": "https://github.com/Syntek-Studio/syntek-infra-plugin"
+    "url": "https://github.com/Syntek-Dev/syntek-infra-plugin"
   },
   "plugins": [
     {
